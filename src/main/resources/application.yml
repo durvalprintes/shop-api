@@ -15,7 +15,18 @@ spring:
       ddl-auto: none
     properties:
       hibernate:
-        format_sql: true
+        '[format_sql]': true
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      client-id: shop-api
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+topic: shop-topic
 
 logging:
   level:
