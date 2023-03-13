@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.casa.codigo.client.KafkaClient;
 import com.casa.codigo.constants.Status;
 import com.casa.codigo.dto.ShopDto;
 import com.casa.codigo.model.Shop;
@@ -27,6 +28,8 @@ public class ShopController {
 
   private final ModelMapper mapper;
 
+  private final KafkaClient listener;
+
   @GetMapping
   public List<ShopDto> getShop() {
     return repository.findAll().stream().map(shop -> mapper.map(shop, ShopDto.class)).toList();
@@ -41,6 +44,8 @@ public class ShopController {
     Shop shop = mapper.map(dto, Shop.class);
     shop.getItems().stream().forEach(item -> item.setShop(shop));
 
-    return mapper.map(repository.save(shop), ShopDto.class);
+    var saved = mapper.map(repository.save(shop), ShopDto.class);
+    listener.sendMessage(saved);
+    return saved;
   }
 }
