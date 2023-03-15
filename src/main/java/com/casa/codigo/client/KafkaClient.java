@@ -10,7 +10,7 @@ import com.casa.codigo.dto.ShopDto;
 @Service
 public class KafkaClient {
 
-  @Value(value = "${topic}")
+  @Value(value = "${topic.shop.validator}")
   private String topic;
 
   @Autowired

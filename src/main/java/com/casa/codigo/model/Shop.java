@@ -3,6 +3,8 @@ package com.casa.codigo.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.casa.codigo.constants.Status;
 
 import jakarta.persistence.CascadeType;
@@ -19,6 +21,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@DynamicUpdate
 public class Shop {
 
   @Id

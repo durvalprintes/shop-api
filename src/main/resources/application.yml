@@ -23,10 +23,18 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       client-id: shop-api
     consumer:
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
-topic: shop-topic
+topic:
+  shop:
+    validator: topic-validator
+    status: topic-status
 
 logging:
   level:
