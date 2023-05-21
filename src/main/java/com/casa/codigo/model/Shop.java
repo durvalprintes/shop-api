@@ -21,7 +21,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@DynamicUpdate
+//@DynamicUpdate
 public class Shop {
 
   @Id
@@ -36,6 +36,6 @@ public class Shop {
   @Column(name = "date_shop")
   private LocalDate dateShop;
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "shop")
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shop")
   private List<ShopItem> items;
 }

@@ -41,8 +41,8 @@ public class ShopController {
     dto.setDateShop(LocalDate.now());
     dto.setStatus(Status.PENDING);
 
-    Shop shop = mapper.map(dto, Shop.class);
-    shop.getItems().stream().forEach(item -> item.setShop(shop));
+    var shop = mapper.map(dto, Shop.class);
+    shop.getItems().forEach(item -> item.setShop(shop));
 
     var saved = mapper.map(repository.save(shop), ShopDto.class);
     listener.sendMessage(saved);
